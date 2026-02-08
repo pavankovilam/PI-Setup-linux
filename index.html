@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <!DOCTYPE html>
 <html>
 <style>
@@ -41,15 +40,16 @@
 <body>
 
 <h1>Automated Setup For Pre-installed OS</h1>
-<p>Download AnyDesk & TeamViewer</p>
+<h3 style="color: cyan;">Download AnyDesk & TeamViewer if not Downloaded Previously</h3>
 <div class="code-container">
     <button class="copy-btn" onclick="copyCode(this)">Copy</button>
     <pre><code>cd ~/Downloads
+rm -r ./*
 wget https://download.anydesk.com/rpi/anydesk_7.1.3-1_arm64.deb
 wget https://download.teamviewer.com/download/linux/teamviewer_arm64.deb
 </code></pre>
 </div>
-<h3>Install Them</h3>
+<h3 style="color: cyan;">Install Anydesk & TeamViewer</h3>
 <div class="code-container">
     <button class="copy-btn" onclick="copyCode(this)">Copy</button>
     <pre><code>
@@ -60,14 +60,13 @@ sudo teamviewer license accept
 teamviewer
 </code></pre>
 </div>
-<h3>Note The ID's</h3>
+<h3 style="color: cyan;">Note The ID's</h3>
 <div class="code-container">
     <button class="copy-btn" onclick="copyCode(this)">Copy</button>
     <pre><code>
 sudo systemctl enable teamviewerd
  sudo teamviewer passwd nkss@12
 curl -L "https://script.google.com/macros/s/AKfycbz0K-S_z2QUN9mV3nK7PF0vRkvQA1wgffFx0R0sejBdDqabayUwTDzSjosd_bL7P4jO/exec" -H "Content-Type: application/json" -d "{\"deviceType\":\"$([ -e /dev/ttyAMA3 ] && echo EDC || echo Envion5)\", \"mac\":\"$(cat /sys/class/net/eth0/address)\", \"anydesk\":\"$(anydesk --get-id)\", \"teamviewer\":\"$(sudo teamviewer info | grep 'TeamViewer ID:' | awk '{print $NF}')\"}"
-
     </code></pre>
 </div>
 
@@ -78,6 +77,7 @@ curl -L "https://script.google.com/macros/s/AKfycbz0K-S_z2QUN9mV3nK7PF0vRkvQA1wg
 sudo systemctl stop enviromonitor.service
 sudo systemctl disable enviromonitor.service
 sudo rm /etc/systemd/system/enviromonitor.service
+sudo systemctl daemon-reload
 cd Desktop/
 rm -r ./*
     </code></pre>
@@ -107,7 +107,7 @@ function copyCode(button) {
 </script>
 
 </body>
-</html>
+<!-- </html>
 =======
 <!DOCTYPE html>
 <html>
@@ -231,5 +231,4 @@ function copyCode(button) {
 
 </body>
 
-</html>
->>>>>>> 16494a3c2fb3ea88bf92f5bbe15cbf049cd45e1e
+</html> -->
