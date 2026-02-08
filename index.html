@@ -1,0 +1,235 @@
+<<<<<<< HEAD
+<!DOCTYPE html>
+<html>
+<style>
+    body {
+        margin-left: 20%;
+        margin-right: 20%;
+        background-color: black;
+        color: white;
+    }
+    .code-container {
+        position: relative;
+        background-color: #333; /* Slightly darker for contrast */
+        border-radius: 8px;
+        padding: 15px;
+        margin: 20px 0;
+        font-family: 'Courier New', Courier, monospace;
+    }
+    pre {
+        margin: 0;
+        color: #d4d4d4;
+        overflow-x: auto;
+        white-space: pre-wrap; /* Better for mobile/small screens */
+    }
+    .copy-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        padding: 5px 10px;
+        background: #444;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 12px;
+        transition: background 0.3s;
+    }
+    .copy-btn:hover { background: #666; }
+    .copy-btn.copied { background: #28a745; }
+</style>
+<body>
+
+<h1>Automated Setup For Pre-installed OS</h1>
+<p>Download AnyDesk & TeamViewer</p>
+<div class="code-container">
+    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    <pre><code>cd ~/Downloads
+wget https://download.anydesk.com/rpi/anydesk_7.1.3-1_arm64.deb
+wget https://download.teamviewer.com/download/linux/teamviewer_arm64.deb
+</code></pre>
+</div>
+<h3>Install Them</h3>
+<div class="code-container">
+    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    <pre><code>
+cd ~/Downloads
+sudo apt install ./*.deb
+ echo "nkss@123" | sudo anydesk --set-password
+sudo teamviewer license accept
+teamviewer
+</code></pre>
+</div>
+<h3>Note The ID's</h3>
+<div class="code-container">
+    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    <pre><code>
+sudo systemctl enable teamviewerd
+ sudo teamviewer passwd nkss@12
+curl -L "https://script.google.com/macros/s/AKfycbz0K-S_z2QUN9mV3nK7PF0vRkvQA1wgffFx0R0sejBdDqabayUwTDzSjosd_bL7P4jO/exec" -H "Content-Type: application/json" -d "{\"deviceType\":\"$([ -e /dev/ttyAMA3 ] && echo EDC || echo Envion5)\", \"mac\":\"$(cat /sys/class/net/eth0/address)\", \"anydesk\":\"$(anydesk --get-id)\", \"teamviewer\":\"$(sudo teamviewer info | grep 'TeamViewer ID:' | awk '{print $NF}')\"}"
+
+    </code></pre>
+</div>
+
+<h3>To Remove Previous Envioromonitor </h3>
+<div class="code-container">
+    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    <pre><code>
+sudo systemctl stop enviromonitor.service
+sudo systemctl disable enviromonitor.service
+sudo rm /etc/systemd/system/enviromonitor.service
+cd Desktop/
+rm -r ./*
+    </code></pre>
+</div>
+<script>
+function copyCode(button) {
+    // Find the <code> element that is a sibling of the clicked button
+    const container = button.closest('.code-container');
+    const codeText = container.querySelector('code').innerText.trim();
+
+    // Use Clipboard API
+    navigator.clipboard.writeText(codeText).then(() => {
+        // Visual feedback for this specific button
+        const originalText = button.innerText;
+        button.innerText = "Copied!";
+        button.classList.add('copied');
+
+        // Reset only this button after 2 seconds
+        setTimeout(() => {
+            button.innerText = originalText;
+            button.classList.remove('copied');
+        }, 2000);
+    }).catch(err => {
+        console.error('Failed to copy: ', err);
+    });
+}
+</script>
+
+</body>
+</html>
+=======
+<!DOCTYPE html>
+<html>
+<style>
+    body {
+        margin-left: 20%;
+        margin-right: 20%;
+        background-color: black;
+        color: white;
+    }
+    .code-container {
+        position: relative;
+        background-color: #333; /* Slightly darker for contrast */
+        border-radius: 8px;
+        padding: 15px;
+        margin: 20px 0;
+        font-family: 'Courier New', Courier, monospace;
+    }
+    pre {
+        margin: 0;
+        color: #d4d4d4;
+        overflow-x: auto;
+        white-space: pre-wrap; /* Better for mobile/small screens */
+    }
+    .copy-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        padding: 5px 10px;
+        background: #444;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 12px;
+        transition: background 0.3s;
+    }
+    .copy-btn:hover { background: #666; }
+    .copy-btn.copied { background: #28a745; }
+</style>
+<body>
+
+<h1>Automated Setup For Pre-installed OS</h1>
+
+<p>Install AnyDesk</p>
+<div class="code-container">
+    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    <pre><code>cd ~/Downloads
+sudo apt install ./anydesk_7.1.1-1_arm64.deb</code></pre>
+</div>
+
+<p>Install TeamViewer</p>
+<div class="code-container">
+    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    <pre><code>cd ~/Downloads
+sudo apt install ./teamviewer_15.72.3_arm64.deb</code></pre>
+</div>
+
+<p>Set Default Password to AnyDesk</p>
+<code> Don't Forget to add space at the staring of the command </code>
+<div class="code-container">
+    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    <pre><code>echo "nkss@123" | sudo anydesk --set-password</code></pre>
+</div>
+
+<p>Accept Licence for TeamViewer</p>
+<div class="code-container">
+    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    <pre><code>
+        sudo teamviewer license accept
+        sudo systemctl enable teamviewerd
+    </code></pre>
+</div>
+<code> Don't Forget to add space at the staring of the command </code>
+<div class="code-container">
+    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    <pre><code>
+        sudo teamviewer passwd nkss@12
+    </code></pre>
+</div>
+<p><code>reboot</code> device To make changes to come into effect</p>
+<p>Note The ID for Envion5</p>
+<p></p>
+<div class="code-container">
+    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    <pre><code>
+curl -L "https://script.google.com/macros/s/AKfycbz0K-S_z2QUN9mV3nK7PF0vRkvQA1wgffFx0R0sejBdDqabayUwTDzSjosd_bL7P4jO/exec" -H "Content-Type: application/json" -d "{\"deviceType\":\"Envion5\", \"mac\":\"$(cat /sys/class/net/eth0/address)\", \"anydesk\":\"$(anydesk --get-id)\", \"teamviewer\":\"$(sudo teamviewer info | grep 'TeamViewer ID:' | awk '{print $NF}')\"}"
+    </code></pre>
+</div>
+<p>Note The ID for EDC</p>
+<p></p>
+<div class="code-container">
+    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    <pre><code>
+curl -L "https://script.google.com/macros/s/AKfycbz0K-S_z2QUN9mV3nK7PF0vRkvQA1wgffFx0R0sejBdDqabayUwTDzSjosd_bL7P4jO/exec" -H "Content-Type: application/json" -d "{\"deviceType\":\"EDC\", \"mac\":\"$(cat /sys/class/net/eth0/address)\", \"anydesk\":\"$(anydesk --get-id)\", \"teamviewer\":\"$(sudo teamviewer info | grep 'TeamViewer ID:' | awk '{print $NF}')\"}"
+    </code></pre>
+</div>
+<script>
+function copyCode(button) {
+    // Find the <code> element that is a sibling of the clicked button
+    const container = button.closest('.code-container');
+    const codeText = container.querySelector('code').innerText.trim();
+
+    // Use Clipboard API
+    navigator.clipboard.writeText(codeText).then(() => {
+        // Visual feedback for this specific button
+        const originalText = button.innerText;
+        button.innerText = "Copied!";
+        button.classList.add('copied');
+
+        // Reset only this button after 2 seconds
+        setTimeout(() => {
+            button.innerText = originalText;
+            button.classList.remove('copied');
+        }, 2000);
+    }).catch(err => {
+        console.error('Failed to copy: ', err);
+    });
+}
+</script>
+
+</body>
+
+</html>
+>>>>>>> 16494a3c2fb3ea88bf92f5bbe15cbf049cd45e1e
