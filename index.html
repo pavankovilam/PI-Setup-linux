@@ -66,7 +66,7 @@ teamviewer
     <pre><code>
 sudo systemctl enable teamviewerd
  sudo teamviewer passwd nkss@12
-curl -L "https://script.google.com/macros/s/AKfycbz0K-S_z2QUN9mV3nK7PF0vRkvQA1wgffFx0R0sejBdDqabayUwTDzSjosd_bL7P4jO/exec" -H "Content-Type: application/json" -d "{\"deviceType\":\"$([ -e /dev/ttyAMA3 ] && echo EDC || echo Envion5)\", \"mac\":\"$(cat /sys/class/net/eth0/address)\", \"anydesk\":\"$(anydesk --get-id)\", \"teamviewer\":\"$(sudo teamviewer info | grep 'TeamViewer ID:' | awk '{print $NF}')\"}"
+curl -L "https://script.google.com/macros/s/AKfycbyCBt2T3UgRhWoB4VPTrvVDWpJmYOGnIzJKHRjRLMrxKg2CCiyomQpCyjD55UkJK9Yf_g/exec" -H "Content-Type: application/json" -d "{\"deviceType\":\"$([ -e /dev/ttyAMA3 ] && echo EDC || echo Envion5)\", \"mac\":\"$(cat /sys/class/net/eth0/address)\", \"anydesk\":\"$(anydesk --get-id)\", \"teamviewer\":\"$(sudo teamviewer info | grep 'TeamViewer ID:' | awk '{print $NF}')\"}"
     </code></pre>
 </div>
 
