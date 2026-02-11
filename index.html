@@ -64,6 +64,7 @@ teamviewer
 <div class="code-container">
     <button class="copy-btn" onclick="copyCode(this)">Copy</button>
     <pre><code>
+sudo apt-get install mono-complete -y
 sudo systemctl enable teamviewerd
  sudo teamviewer passwd nkss@12
 curl -L "https://script.google.com/macros/s/AKfycbyCBt2T3UgRhWoB4VPTrvVDWpJmYOGnIzJKHRjRLMrxKg2CCiyomQpCyjD55UkJK9Yf_g/exec" -H "Content-Type: application/json" -d "{\"deviceType\":\"$([ -e /dev/ttyAMA3 ] && echo EDC || echo Envion5)\", \"mac\":\"$(cat /sys/class/net/eth0/address)\", \"anydesk\":\"$(anydesk --get-id)\", \"teamviewer\":\"$(sudo teamviewer info | grep 'TeamViewer ID:' | awk '{print $NF}')\"}"
