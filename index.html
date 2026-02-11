@@ -82,6 +82,15 @@ cd Desktop/
 rm -r ./*
     </code></pre>
 </div>
+<h3>To onfigure only memory cards</h3>
+<div class="code-container">
+    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    <pre><code>
+sudo rm -f /etc/machine-id
+sudo rm -f /var/lib/dbus/machine-id
+sudo systemd-machine-id-setup
+    </code></pre>
+</div>
 <script>
 function copyCode(button) {
     // Find the <code> element that is a sibling of the clicked button
