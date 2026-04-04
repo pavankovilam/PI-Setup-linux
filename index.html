@@ -92,6 +92,116 @@ sudo rm -f /var/lib/dbus/machine-id
 sudo systemd-machine-id-setup
     </code></pre>
 </div>
+<h1>To Upgrade Envion to EDC</h1>
+<div class="code-container">
+    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    <pre><code>
+sudo apt update
+sudo apt install -y build-essential libssl-dev zlib1g-dev \
+libncurses5-dev libnss3-dev libreadline-dev libffi-dev \
+libsqlite3-dev wget libbz2-dev
+cd /usr/src
+sudo wget https://www.python.org/ftp/python/3.10.14/Python-3.10.14.tgz
+sudo tar xzf Python-3.10.14.tgz
+cd Python-3.10.14
+sudo ./configure --enable-optimizations
+sudo make altinstall
+sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.13 1
+sudo update-alternatives --install /usr/bin/python3 python3 /usr/local/bin/python3.10 2
+sudo update-alternatives --config python3
+    </code></pre>
+</div>
+<p>Press "0" and press enter</p>
+<div class="code-container">
+    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    <pre><code>
+curl -sS https://bootstrap.pypa.io/get-pip.py | sudo python3.10curl -sS https://bootstrap.pypa.io/get-pip.py | sudo python3.10
+cd ~
+git clone https://github.com/adafruit/Adafruit_Python_MCP3008.git
+cd Adafruit_Python_MCP3008
+sudo python3 setup.py install 
+sudo nano examples/simpletest.py 
+</code></pre>
+</div>
+<p>Add # for lines under the `# Software SPI configuration`</p>
+<p>And remove # for lines under the `# Hardware SPI configuration`</p>
+<div class="code-container">
+    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    <pre><code>
+sudo nano /boot/firmware/config.txt
+    </code></pre>
+</div>
+<p>Paste the below lines at last of the code</p>
+<div class="code-container">
+    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    <pre><code>
+dtoverlay=uart3
+dtoverlay=uart5
+    </code></pre>
+</div>
+<div class="code-container">
+    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    <pre><code>
+sudo nano /etc/rc.local
+    </code></pre>
+</div>
+<div class="code-container">
+    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    <pre><code>
+#!/bin/bash
+# rc.local - run commands after all system startup scripts
+
+# Run your script
+sudo python3 /home/pi/Desktop/simpletest.py &
+
+exit 0
+    </code></pre>
+</div>
+<div class="code-container">
+    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    <pre><code>
+sudo chmod +x /etc/rc.local
+    </code></pre>
+</div>
+<div class="code-container">
+    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    <pre><code>
+sudo nano /etc/systemd/system/rc-local.service
+    </code></pre>
+</div>
+<div class="code-container">
+    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    <pre><code>
+[Unit]
+Description=/etc/rc.local Compatibility
+ConditionFileIsExecutable=/etc/rc.local
+After=network.target
+
+[Service]
+Type=forking
+ExecStart=/etc/rc.local start
+TimeoutSec=0
+StandardOutput=tty
+RemainAfterExit=yes
+SysVStartPriority=99
+
+[Install]
+WantedBy=multi-user.target
+    </code></pre>
+</div>
+<div class="code-container">
+    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    <pre><code>
+sudo systemctl enable rc-local
+sudo systemctl start rc-local
+    </code></pre>
+</div>
+<div class="code-container">
+    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    <pre><code>
+sudo reboot
+    </code></pre>
+</div>
 <script>
 function copyCode(button) {
     // Find the <code> element that is a sibling of the clicked button
