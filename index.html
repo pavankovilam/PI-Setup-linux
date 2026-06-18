@@ -54,19 +54,27 @@ wget https://download.teamviewer.com/download/linux/teamviewer_arm64.deb
     <button class="copy-btn" onclick="copyCode(this)">Copy</button>
     <pre><code>
 cd ~/Downloads
+sudo apt-get install mono-complete -y
 sudo apt install ./*.deb
- echo "nkss@123" | sudo anydesk --set-password
 sudo teamviewer license accept
 teamviewer
 </code></pre>
+</div>
+<h3 style="color: cyan;">Set Password to Anydesk and TeamVeiwer</h3>
+<div class="code-container">
+    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    <pre><code>
+  echo "nkss@123" | sudo anydesk --set-password
+sudo systemctl enable teamviewerd
+ sudo teamviewer passwd nkss@12
+    </code></pre>
 </div>
 <h3 style="color: cyan;">Note The ID's</h3>
 <div class="code-container">
     <button class="copy-btn" onclick="copyCode(this)">Copy</button>
     <pre><code>
-sudo apt-get install mono-complete -y
-sudo systemctl enable teamviewerd
- sudo teamviewer passwd nkss@12
+MAC_ADDR=$(cat /sys/class/net/eth0/address 2>/dev/null || echo 'No Eth0'); DEVICE_TYPE=$([ -e /home/pi/Adafruit_Python_MCP3008 ] || [ -e /dev/ttyAMA3 ] && echo EDC || { [ -e /dev/ttySC0 ] && echo HAT || echo Envion5; }); ANYDESK_ID=$(anydesk --get-id 2>/dev/null || echo 'Not Installed'); TEAMVIEWER_ID=$(sudo teamviewer info 2>/dev/null | grep 'TeamViewer ID:' | awk '{print $NF}'); echo "Sending data to Zoho..."; HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" -X POST "https://flow.zoho.in/60073202505/flow/webhook/incoming?zapikey=1001.413709bde12c5b444f8601b0a91a06b6.77b8505ee454c85eae51f479b70c9fc5&isdebug=false" -H "Content-Type: application/json" -d "{\"deviceType\":\"$DEVICE_TYPE\", \"mac\":\"$MAC_ADDR\", \"anydesk\":\"$ANYDESK_ID\", \"teamviewer\":\"$TEAMVIEWER_ID\"}"); echo ""; if [ "$HTTP_STATUS" -eq 200 ] || [ "$HTTP_STATUS" -eq 202 ]; then echo "Status: Success (Data successfully transmitted)"; else echo "Status: Error (Server responded with code $HTTP_STATUS)"; fi; echo ""
+
 curl -L "https://script.google.com/macros/s/AKfycbyCBt2T3UgRhWoB4VPTrvVDWpJmYOGnIzJKHRjRLMrxKg2CCiyomQpCyjD55UkJK9Yf_g/exec" -H "Content-Type: application/json" -d "{\"deviceType\":\"$([ -e ~/Adafruit_Python_MCP3008 ] && echo EDC || { [ -e /dev/ttySC0 ] && echo HAT || echo Envion5; })\", \"mac\":\"$(cat /sys/class/net/eth0/address)\", \"anydesk\":\"$(anydesk --get-id)\", \"teamviewer\":\"$(sudo teamviewer info | grep 'TeamViewer ID:' | awk '{print $NF}')\"}"
     </code></pre>
 </div>
@@ -103,7 +111,7 @@ sudo systemctl disable enviromonitor.service
 sudo rm /etc/systemd/system/enviromonitor.service
 sudo systemctl daemon-reload
 cd Desktop/
-rm -r ./*
+sudo rm -r ./*
     </code></pre>
 </div>
 <h3>To onfigure only memory cards</h3>
